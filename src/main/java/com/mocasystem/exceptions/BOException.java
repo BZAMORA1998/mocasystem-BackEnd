@@ -35,10 +35,7 @@ public class BOException extends Exception {
 		if (localeDefault.equals(locale)) {
 			return super.getMessage();
 		} else {
-			if (messageParametersValues != null && messageParametersValues.length > 0)
-				return MensajesUtil.getMensaje(codeMessage, messageParametersValues, locale);
-			else
-				return MensajesUtil.getMensaje(codeMessage, locale);
+			return MensajesUtil.getMensaje(codeMessage, locale);
 		}
 	}
 
