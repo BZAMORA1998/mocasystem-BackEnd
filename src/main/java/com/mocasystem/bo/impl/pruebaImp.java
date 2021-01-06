@@ -10,7 +10,7 @@ public class pruebaImp implements pruebaBO{
 
 	@Override
 	public void prueba() throws BOException {
-		throw new BOException("moca.response.ok");
+		//throw new BOException("moca.response.ok");
 	}
 
 }
