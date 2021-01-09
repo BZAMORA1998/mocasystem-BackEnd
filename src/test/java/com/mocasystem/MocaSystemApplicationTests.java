@@ -1,13 +1,14 @@
 package com.mocasystem;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootTest
-class MocaSystemApplicationTests {
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+public class MocaSystemApplicationTests {
 
-	@Test
-	void contextLoads() {
+	public static void main(String[] args) {
+		SpringApplication.run(MocaSystemApplicationTests.class, args);
 	}
-
+	
 }
