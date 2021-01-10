@@ -31,17 +31,13 @@ public class EmpresaApi {
 	public ResponseEntity<?> infoEmpresa(@RequestHeader(	
 			value = "Accept-Language", 	required = false) String strLanguage,
 			@RequestParam(value="variable", required = false)  String  strVariable,
-			@RequestParam(value="codigoEmpresa", required = false)  Integer  intCodigoEmpresa
+			@RequestParam(value="secuenciaEmpresa", required = false)  Integer  intCodigoEmpresa
 			) throws BOException {
 		
 		try {
-			
-			return new ResponseEntity<>(new ResponseOk(
-										MensajesUtil.getMensaje("moca.response.ok", 
-										MensajesUtil.validateSupportedLocale(strLanguage)),
-										objEmpresaBO.infoEmpresa(intCodigoEmpresa,strVariable))
+			return new ResponseEntity<>(new ResponseOk(MensajesUtil.getMensaje("moca.response.ok", 
+										MensajesUtil.validateSupportedLocale(strLanguage)),objEmpresaBO.infoEmpresa(intCodigoEmpresa,strVariable))
 										, HttpStatus.OK);
-			
 		} catch (BOException be) {
 			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
 			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());

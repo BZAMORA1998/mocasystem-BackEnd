@@ -1,10 +1,16 @@
 package com.mocasystem.exceptions;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Clase que permite manejar excepciones en toda la aplicación, no solo en un controlador individual.
@@ -17,8 +23,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class RestExceptionHandler {
 	
-   @ExceptionHandler(value=BOException.class)
-   public ResponseEntity<Object> handleRestClientException(BOException e) {
+	private static final Logger logger = LogManager.getLogger(RestExceptionHandler.class.getName());
+	
+   @Autowired
+   private Environment env;
+	
+   @ExceptionHandler(value=UnauthorizedException.class)
+   public ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException e) {
+		return new ResponseEntity<Object>(
+				new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), false, e.getMessage(), 
+						e.getData()!=null?new Object[] {e.getData()}:new Object[]{}
+					), HttpStatus.BAD_REQUEST);
+   }
+   
+   @ExceptionHandler(value=RestClientException.class)
+   public ResponseEntity<Object> handleRestClientException(RestClientException e) {
 		return new ResponseEntity<Object>(
 				new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), false, e.getMessage(), 
 						e.getData()!=null?new Object[] {e.getData()}:new Object[]{}
@@ -33,5 +52,33 @@ public class RestExceptionHandler {
 						e.getData()!=null?new Object[] {e.getData()}:new Object[]{}
 					), HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(value = NoHandlerFoundException.class)
+	public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException e) {
+		return new ResponseEntity<Object>(
+				new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), false, 
+						e.getMessage()!=null?e.getMessage():"", 
+						e.getCause()!=null?new Object[] {e.getCause()}:new Object[]{}
+					), HttpStatus.NOT_FOUND);
+	}
+		
+	@ExceptionHandler(value=MaxUploadSizeExceededException.class)
+	public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException e) {
+		return new ResponseEntity<Object>(
+				new ApiErrorResponse(HttpStatus.EXPECTATION_FAILED.value(), false, 
+						"El archivo supera el tamaño máximo permitido: " + env.getProperty("spring.servlet.multipart.max-file-size"),
+						e.getMessage()!=null?new Object[] {e.getMessage()}:new Object[]{}
+				), HttpStatus.EXPECTATION_FAILED);
+	}
 
+	@ExceptionHandler(value= Exception.class)
+	public ResponseEntity<Object> handleAllExceptions(final Exception ex) {
+		logger.error(ExceptionUtils.getStackTrace(ex));
+		
+		return new ResponseEntity<Object>(
+				new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false, 
+						ex.getMessage(),
+						new Object[] {ExceptionUtils.getStackTrace(ex)}
+				), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

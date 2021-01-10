@@ -5,8 +5,8 @@ import java.util.Locale;
 import com.mocasystem.util.MensajesUtil;
 import com.sun.istack.internal.NotNull;
 
-public class BOException extends Exception {
-	
+public class UnauthorizedException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 	
 	private static final Locale localeDefault = new Locale("es", "EC");
@@ -14,43 +14,39 @@ public class BOException extends Exception {
 	private Object[] messageParametersValues;
 	private Object data;
 
-	public BOException() {
-		super();
-	}
-
-	public BOException(String codeMessage, Throwable cause) {
+	public UnauthorizedException(String codeMessage, Throwable cause) {
 		super(MensajesUtil.getMensaje(codeMessage, localeDefault), cause);
 		this.codeMessage  = codeMessage;
 	}
 
-	public BOException(String codeMessage) {
+	public UnauthorizedException(String codeMessage) {
 		super(MensajesUtil.getMensaje(codeMessage, localeDefault));
 		this.codeMessage  = codeMessage;
 	}
 
-	public BOException(Throwable cause) {
+	public UnauthorizedException(Throwable cause) {
 		super(cause);
 	}
 	
-	public BOException(String codeMessage, @NotNull Object data) {
+	public UnauthorizedException(String codeMessage, @NotNull Object data) {
 		super(MensajesUtil.getMensaje(codeMessage, localeDefault));
 		this.codeMessage  = codeMessage;
 		this.data = data;
 	}
 	
-	public BOException(String codeMessage,  @NotNull Object[] messageParametersValues, Throwable cause) {
+	public UnauthorizedException(String codeMessage, @NotNull Object[] messageParametersValues, Throwable cause) {
 		super(MensajesUtil.getMensaje(codeMessage, messageParametersValues, localeDefault), cause);
 		this.codeMessage  = codeMessage;
 		this.messageParametersValues = messageParametersValues;
 	}
 	
-	public BOException(String codeMessage, @NotNull Object[] messageParametersValues) {
+	public UnauthorizedException(String codeMessage, @NotNull Object[] messageParametersValues) {
 		super(MensajesUtil.getMensaje(codeMessage, messageParametersValues, localeDefault));
 		this.codeMessage  = codeMessage;
 		this.messageParametersValues = messageParametersValues;
 	}
 	
-	public BOException(String codeMessage, @NotNull Object[] messageParametersValues, @NotNull Object data) {
+	public UnauthorizedException(String codeMessage, @NotNull Object[] messageParametersValues, @NotNull Object data) {
 		super(MensajesUtil.getMensaje(codeMessage, messageParametersValues, localeDefault));
 		this.codeMessage  = codeMessage;
 		this.messageParametersValues = messageParametersValues;
@@ -77,11 +73,4 @@ public class BOException extends Exception {
 		}
 	}
 
-	public String getCodeMessage() {
-		return codeMessage;
-	}
-
-	public Object[] getMessageParametersValues() {
-		return messageParametersValues;
-	}
 }

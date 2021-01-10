@@ -31,5 +31,28 @@ public class MensajesUtil {
 		String[] arrLang = strLanguage.split("-");
     	return new Locale(arrLang[0], arrLang[1]);
 	}
+	
+	public static String getMensaje(String strKey, Object[] arrParametros, Locale locale) {
+		bundle = ResourceBundle.getBundle(ficheroMensajes, locale);
+		String strMensaje = new String(bundle.getString(strKey).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+		if (arrParametros != null && arrParametros.length > 0) {
+			for (int i = 0; i < arrParametros.length; i++) {
+				strMensaje = strMensaje.replace("{" + i + "}",
+						(isKey(arrParametros[i].toString())
+								? new String(bundle.getString(arrParametros[i].toString())
+										.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
+								: arrParametros[i].toString()));
+			}
+		}
+		return strMensaje;
+	}
+	
+	private static boolean isKey(String strKey) {
+		if (strKey != null && (strKey.contains(".warn.") || strKey.contains(".error.") || strKey.contains(".info.")
+				|| strKey.contains(".campos.") || strKey.contains(".response.") || strKey.contains(".etiquetas.")))
+			return true;
+		else
+			return false;
+	}
 
 }
