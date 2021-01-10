@@ -1,4 +1,4 @@
-package com.mocasystem.security;
+package com.mocasystem.segurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.mocasystem"})
+@ComponentScan(basePackages = {"com.sistema"})
 public class WebConfig implements WebMvcConfigurer{
 
     @Autowired

@@ -3,7 +3,8 @@ package com.mocasystem.exceptions;
 import java.util.Locale;
 
 import com.mocasystem.util.MensajesUtil;
-import javax.validation.constraints.NotNull;
+import com.sun.istack.NotNull;
+
 
 public class RestClientException extends Exception {
 

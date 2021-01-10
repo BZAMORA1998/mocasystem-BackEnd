@@ -7,31 +7,16 @@ import java.util.ResourceBundle;
 public class MensajesUtil {
 
 	private static ResourceBundle bundle;
-	private static String ficheroMensajes = "mensajes_mocasystem";
+	private static String ficheroMensajes = "mensajes_ventas";
 	public static final Locale Locale = new Locale("es", "EC");
 	private static final String LOCALE_ES="es-EC";
 	private static final String LOCALE_ING="en-US";
 
-	/*
-	 * Descripcion: Traduce el mensaje en el lenguaje correspondiente
-	 */
 	public static String getMensaje(String strKey, Locale locale) {
 		bundle = ResourceBundle.getBundle(ficheroMensajes, locale);	
-		return new String(bundle.getString(strKey)
-				.getBytes(StandardCharsets.ISO_8859_1)
-				, StandardCharsets.UTF_8);
+		return new String(bundle.getString(strKey).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 	}
 
-	/*
-	 * Descripcion: Retorna el Locate es or en.
-	 */
-	public static Locale validateSupportedLocale(String strLanguage) {
-		if(strLanguage == null || (!LOCALE_ES.equals(strLanguage) && !LOCALE_ING.equals(strLanguage)))
-			strLanguage=LOCALE_ES;
-		String[] arrLang = strLanguage.split("-");
-    	return new Locale(arrLang[0], arrLang[1]);
-	}
-	
 	public static String getMensaje(String strKey, Object[] arrParametros, Locale locale) {
 		bundle = ResourceBundle.getBundle(ficheroMensajes, locale);
 		String strMensaje = new String(bundle.getString(strKey).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
@@ -49,10 +34,22 @@ public class MensajesUtil {
 	
 	private static boolean isKey(String strKey) {
 		if (strKey != null && (strKey.contains(".warn.") || strKey.contains(".error.") || strKey.contains(".info.")
-				|| strKey.contains(".campos.") || strKey.contains(".response.") || strKey.contains(".etiquetas.")))
+				|| strKey.contains(".campos.")))
 			return true;
 		else
 			return false;
+	}
+	
+	public static String getMensajeCampoObligatorio(String strKeyCampo, Locale locale) {
+		return MensajesUtil.getMensaje("ven.warn.campoObligatorio",
+				new Object[] { MensajesUtil.getMensaje(strKeyCampo, locale) }, locale);
+	}
+	
+	public static Locale validateSupportedLocale(String strLanguage) {
+		if(strLanguage == null || (!LOCALE_ES.equals(strLanguage) && !LOCALE_ING.equals(strLanguage)))
+			strLanguage=LOCALE_ES;
+		String[] arrLang = strLanguage.split("-");
+    	return new Locale(arrLang[0], arrLang[1]);
 	}
 
 }
