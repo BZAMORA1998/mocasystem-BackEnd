@@ -49,26 +49,28 @@ public class DatosEmpresaDAO extends BaseDAO<DatosEmpresa, DatosEmpresaCPK>{
 		return super.find(id);
 	}
 
-	public List<InfoEmpresaDTO> infoEmpresa(Integer intCodigoEmpresa, List<String> lsNombre) {
+	public List<InfoEmpresaDTO> infoEmpresa(Integer intCodigoEmpresa, List<String> lsNemonicos) {
 		 
 		StringBuilder strJPQL = new StringBuilder();
 
 		try {
-			strJPQL.append(" SELECT de.datosEmpresaCPK.nombre as nombre, ");
+			strJPQL.append(" SELECT de.datosEmpresaCPK.nemonico as nemonico, ");
+			strJPQL.append("    	de.nombre as nombre,");
 			strJPQL.append("    	de.descripcion as descripcion");
 			strJPQL.append(" FROM 	DatosEmpresa de");
 			strJPQL.append(" WHERE 	de.datosEmpresaCPK.secuenciaEmpresa=:secuenciaEmpresa");
-			strJPQL.append(" AND  	de.datosEmpresaCPK.nombre in (:nombres)");
+			strJPQL.append(" AND  	de.datosEmpresaCPK.nemonico in (:nemonicos)");
 			strJPQL.append(" AND  	de.esActivo ='S'");
 			
 			TypedQuery<Tuple> query = (TypedQuery<Tuple>) em.createQuery(strJPQL.toString(), Tuple.class);
 			query.setParameter("secuenciaEmpresa", intCodigoEmpresa);
-			query.setParameter("nombres", lsNombre);
+			query.setParameter("nemonicos", lsNemonicos);
 			
 			return query	
 					.getResultList()
 					.stream()
 					.map(tuple -> {return InfoEmpresaDTO.builder()
+					.nemonico(tuple.get("nemonico",String.class))
 					.nombre(tuple.get("nombre",String.class))
 					.descripcion(tuple.get("descripcion",String.class))
 					.build();})

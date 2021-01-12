@@ -28,6 +28,6 @@ public class DatosEmpresaCPK implements Serializable{
     private Integer secuenciaEmpresa;
     
     @NotNull
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nemonico")
+    private String nemonico;
 }

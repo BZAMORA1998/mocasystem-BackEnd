@@ -30,6 +30,9 @@ public class DatosEmpresa implements Serializable {
     @EqualsAndHashCode.Include
     private  DatosEmpresaCPK datosEmpresaCPK;
 	
+    @Column(name = "nombre")
+	private String nombre;
+    
 	@Column(name = "descripcion")
     private String descripcion;
 	
