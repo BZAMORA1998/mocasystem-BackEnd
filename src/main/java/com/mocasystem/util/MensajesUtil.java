@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 public class MensajesUtil {
 
 	private static ResourceBundle bundle;
-	private static String ficheroMensajes = "mensajes_ventas";
+	private static String ficheroMensajes = "mensajes_mocasystem";
 	public static final Locale Locale = new Locale("es", "EC");
 	private static final String LOCALE_ES="es-EC";
 	private static final String LOCALE_ING="en-US";
@@ -41,7 +41,7 @@ public class MensajesUtil {
 	}
 	
 	public static String getMensajeCampoObligatorio(String strKeyCampo, Locale locale) {
-		return MensajesUtil.getMensaje("ven.warn.campoObligatorio",
+		return MensajesUtil.getMensaje("moc.warn.campoObligatorio",
 				new Object[] { MensajesUtil.getMensaje(strKeyCampo, locale) }, locale);
 	}
 	

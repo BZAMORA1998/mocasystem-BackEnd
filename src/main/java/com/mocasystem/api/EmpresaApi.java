@@ -35,7 +35,7 @@ public class EmpresaApi {
 			) throws BOException {
 		
 		try {
-			return new ResponseEntity<>(new ResponseOk(MensajesUtil.getMensaje("ven.response.ok", 
+			return new ResponseEntity<>(new ResponseOk(MensajesUtil.getMensaje("moc.response.ok", 
 										MensajesUtil.validateSupportedLocale(strLanguage)),objEmpresaBO.infoEmpresa(intCodigoEmpresa,strVariable))
 										, HttpStatus.OK);
 		} catch (BOException be) {
