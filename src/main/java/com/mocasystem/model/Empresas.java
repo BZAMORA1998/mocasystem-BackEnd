@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tbl_empresas")
-public class Empresa implements Serializable {
+public class Empresas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,11 +34,14 @@ public class Empresa implements Serializable {
     private Integer secuenciaEmpresa;
 	
 	@Column(name = "nombre")
-    private String nombreGenero;
+    private String nombre;
 	
 	@Column(name = "descripcion")
     private String descripcion;
 	
 	@Column(name = "es_activo")
     private String esActivo;
+	
+	@Column(name = "logo")
+	private byte[] logo;
 }
