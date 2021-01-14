@@ -17,7 +17,7 @@ import com.mocasystem.exceptions.BOException;
 import com.mocasystem.model.Empresas;
 
 @Service
-public class EmpresaBOImp implements IEmpresaBO{
+public class EmpresaBOImpl implements IEmpresaBO{
 	
 	@Autowired
 	private DatosEmpresaDAO objDatosEmpresaDAO;
@@ -64,5 +64,4 @@ public class EmpresaBOImp implements IEmpresaBO{
 		}
 		return objEmpresaDTO;
 	}
-
 }

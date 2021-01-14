@@ -11,4 +11,5 @@ public interface IEmpresaBO {
 	public List<InfoEmpresaDTO> infoEmpresa(Integer intCodigoEmpresa, String strVariable) throws BOException ;
 
 	public EmpresaDTO consultarEmpresa(Integer intCodigoEmpresa)throws BOException ;
+
 }
