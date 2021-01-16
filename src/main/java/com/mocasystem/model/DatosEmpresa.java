@@ -38,4 +38,7 @@ public class DatosEmpresa implements Serializable {
 	
 	@Column(name = "es_activo")
     private String esActivo;
+	
+	@Column(name = "orden")
+    private Integer orden;
 }

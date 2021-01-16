@@ -61,6 +61,7 @@ public class DatosEmpresaDAO extends BaseDAO<DatosEmpresa, DatosEmpresaCPK>{
 			strJPQL.append(" WHERE 	de.datosEmpresaCPK.secuenciaEmpresa=:secuenciaEmpresa");
 			strJPQL.append(" AND  	de.datosEmpresaCPK.nemonico in (:nemonicos)");
 			strJPQL.append(" AND  	de.esActivo ='S'");
+			strJPQL.append(" ORDER BY 	de.orden ASC");
 			
 			TypedQuery<Tuple> query = (TypedQuery<Tuple>) em.createQuery(strJPQL.toString(), Tuple.class);
 			query.setParameter("secuenciaEmpresa", intCodigoEmpresa);
